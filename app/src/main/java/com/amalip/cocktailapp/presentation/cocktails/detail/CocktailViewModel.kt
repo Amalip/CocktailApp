@@ -1,7 +1,7 @@
 package com.amalip.cocktailapp.presentation.cocktails.detail
 
-import androidx.lifecycle.ViewModel
+import com.amalip.cocktailapp.core.presentation.BaseViewModel
 
-class CocktailViewModel : ViewModel() {
+class CocktailViewModel : BaseViewModel() {
     // TODO: Implement the ViewModel
 }

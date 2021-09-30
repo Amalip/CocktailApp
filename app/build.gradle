@@ -50,14 +50,14 @@ android {
             dimension "practica"
             versionNameSuffix "-dev"
             ext {
-                buildConfigField "String", "API_BASE_URL", "\"\""
+                buildConfigField "String", "API_BASE_URL", "\"https://www.thecocktaildb.com/api/\""
             }
         }
         prod {
             dimension "practica"
             versionNameSuffix ""
             ext {
-                buildConfigField "String", "API_BASE_URL", "\"\""
+                buildConfigField "String", "API_BASE_URL", "\"https://www.thecocktaildb.com/api/\""
             }
         }
     }

@@ -1,32 +1,53 @@
 package com.amalip.cocktailapp.presentation.cocktails.detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.amalip.cocktailapp.R
+import com.amalip.cocktailapp.core.extension.failure
+import com.amalip.cocktailapp.core.extension.observe
+import com.amalip.cocktailapp.core.presentation.BaseFragment
+import com.amalip.cocktailapp.core.presentation.BaseViewState
+import com.amalip.cocktailapp.databinding.CocktailFragmentBinding
+import com.amalip.cocktailapp.domain.model.Cocktail
 
-class CocktailFragment : Fragment() {
+class CocktailFragment : BaseFragment(R.layout.cocktail_fragment) {
 
-    companion object {
-        fun newInstance() = CocktailFragment()
+    private lateinit var binding: CocktailFragmentBinding
+
+    private lateinit var adapter: CocktailAdapter
+    private val cocktailViewModel by viewModels<CocktailViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        cocktailViewModel.apply {
+            observe(state, ::onViewStateChanged)
+            failure(failure, ::handleFailure)
+        }
     }
 
-    private lateinit var viewModel: CocktailViewModel
+    override fun onViewStateChanged(state: BaseViewState?) {
+        super.onViewStateChanged(state)
+        when(state) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.cocktail_fragment, container, false)
+        }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CocktailViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun setUpAdapter(cocktails: List<Cocktail>) {
+        adapter = CocktailAdapter()
+
+        adapter.addData(cocktails)
+
+        binding.rcCocktails.apply {
+            adapter = this@CocktailFragment.adapter
+        }
     }
+
+    override fun setBinding(view: View) {
+        binding = CocktailFragmentBinding.bind(view)
+
+        binding.lifecycleOwner = this
+    }
+
 
 }
