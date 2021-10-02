@@ -8,7 +8,9 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.NavigationUI
 import com.amalip.cocktailapp.core.presentation.BaseActivity
 import com.amalip.cocktailapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding

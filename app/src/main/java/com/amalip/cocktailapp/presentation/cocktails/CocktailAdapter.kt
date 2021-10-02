@@ -1,4 +1,4 @@
-package com.amalip.cocktailapp.presentation.cocktails.detail
+package com.amalip.cocktailapp.presentation.cocktails
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -39,7 +39,6 @@ class CocktailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(data: Cocktail) {
             binding.item = data
         }
-
     }
 
 }

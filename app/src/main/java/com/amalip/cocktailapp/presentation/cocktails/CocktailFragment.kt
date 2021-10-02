@@ -1,4 +1,4 @@
-package com.amalip.cocktailapp.presentation.cocktails.detail
+package com.amalip.cocktailapp.presentation.cocktails
 
 import android.os.Bundle
 import android.view.View
@@ -10,7 +10,13 @@ import com.amalip.cocktailapp.core.presentation.BaseFragment
 import com.amalip.cocktailapp.core.presentation.BaseViewState
 import com.amalip.cocktailapp.databinding.CocktailFragmentBinding
 import com.amalip.cocktailapp.domain.model.Cocktail
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.WithFragmentBindings
+import kotlinx.coroutines.DelicateCoroutinesApi
 
+@AndroidEntryPoint
+@WithFragmentBindings
+@DelicateCoroutinesApi
 class CocktailFragment : BaseFragment(R.layout.cocktail_fragment) {
 
     private lateinit var binding: CocktailFragmentBinding
@@ -23,13 +29,15 @@ class CocktailFragment : BaseFragment(R.layout.cocktail_fragment) {
         cocktailViewModel.apply {
             observe(state, ::onViewStateChanged)
             failure(failure, ::handleFailure)
+
+            doGetCocktailsByName("")
         }
     }
 
     override fun onViewStateChanged(state: BaseViewState?) {
         super.onViewStateChanged(state)
-        when(state) {
-
+        when (state) {
+            is CocktailViewState.CocktailsReceived -> setUpAdapter(state.cocktails)
         }
     }
 
