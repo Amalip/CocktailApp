@@ -2,12 +2,16 @@ package com.amalip.cocktailapp.presentation.cocktails
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.amalip.cocktailapp.R
 import com.amalip.cocktailapp.core.extension.failure
 import com.amalip.cocktailapp.core.extension.observe
 import com.amalip.cocktailapp.core.presentation.BaseFragment
 import com.amalip.cocktailapp.core.presentation.BaseViewState
+import com.amalip.cocktailapp.core.utils.LayoutType
 import com.amalip.cocktailapp.databinding.CocktailFragmentBinding
 import com.amalip.cocktailapp.domain.model.Cocktail
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,8 +33,6 @@ class CocktailFragment : BaseFragment(R.layout.cocktail_fragment) {
         cocktailViewModel.apply {
             observe(state, ::onViewStateChanged)
             failure(failure, ::handleFailure)
-
-            doGetCocktailsByName("")
         }
     }
 
@@ -55,7 +57,33 @@ class CocktailFragment : BaseFragment(R.layout.cocktail_fragment) {
         binding = CocktailFragmentBinding.bind(view)
 
         binding.lifecycleOwner = this
-    }
 
+        binding.svCocktail.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                cocktailViewModel.doGetCocktailsByName(query ?: "")
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                cocktailViewModel.doGetCocktailsByName(newText ?: "")
+                return true
+            }
+
+        })
+
+        binding.fabSwapView.setOnClickListener {
+            val newLayout = if (adapter.layoutType == LayoutType.LINEAR) {
+                binding.rcCocktails.layoutManager = GridLayoutManager(requireContext(), 3)
+                LayoutType.GRID
+            } else {
+                binding.rcCocktails.layoutManager = LinearLayoutManager(requireContext())
+                LayoutType.LINEAR
+            }
+
+            adapter.changeView(newLayout)
+        }
+
+    }
 
 }
