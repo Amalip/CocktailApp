@@ -4,7 +4,7 @@ import com.amalip.cocktailapp.core.plataform.NetworkHandler
 import com.amalip.cocktailapp.data.api.CocktailApi
 import com.amalip.cocktailapp.data.source.CocktailRepositoryImpl
 import com.amalip.cocktailapp.domain.repository.CocktailRepository
-import com.amalip.cocktailapp.framework.ApiProvider
+import com.amalip.cocktailapp.framework.api.ApiProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

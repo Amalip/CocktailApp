@@ -1,4 +1,4 @@
-package com.amalip.cocktailapp.framework
+package com.amalip.cocktailapp.framework.api
 
 import com.amalip.cocktailapp.core.exception.Failure
 import com.amalip.cocktailapp.core.functional.Either

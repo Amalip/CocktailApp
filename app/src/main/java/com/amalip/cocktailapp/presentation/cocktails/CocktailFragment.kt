@@ -25,7 +25,7 @@ class CocktailFragment : BaseFragment(R.layout.cocktail_fragment) {
 
     private lateinit var binding: CocktailFragmentBinding
 
-    private lateinit var adapter: CocktailAdapter
+    private val adapter: CocktailAdapter by lazy { CocktailAdapter() }
     private val cocktailViewModel by viewModels<CocktailViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +44,6 @@ class CocktailFragment : BaseFragment(R.layout.cocktail_fragment) {
     }
 
     private fun setUpAdapter(cocktails: List<Cocktail>) {
-        adapter = CocktailAdapter()
-
         adapter.addData(cocktails)
 
         binding.rcCocktails.apply {
