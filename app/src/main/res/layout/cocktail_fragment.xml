@@ -32,6 +32,7 @@
                 android:id="@+id/rcCocktails"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="10"
                 tools:listitem="@layout/row_cocktail" />
@@ -48,6 +49,10 @@
             app:backgroundTint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <include
+            android:id="@+id/emptyView"
+            layout="@layout/empty_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,6 +3,7 @@ package com.amalip.cocktailapp.presentation.cocktails
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,9 +45,12 @@ class CocktailFragment : BaseFragment(R.layout.cocktail_fragment) {
     }
 
     private fun setUpAdapter(cocktails: List<Cocktail>) {
+        binding.emptyView.isVisible = cocktails.isEmpty()
+
         adapter.addData(cocktails)
 
         binding.rcCocktails.apply {
+            isVisible = cocktails.isNotEmpty()
             adapter = this@CocktailFragment.adapter
         }
     }
