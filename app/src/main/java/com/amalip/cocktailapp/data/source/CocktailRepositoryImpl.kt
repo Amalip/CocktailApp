@@ -22,11 +22,19 @@ class CocktailRepositoryImpl @Inject constructor(
 ) :
     CocktailRepository, ApiRequest {
 
-    override fun getCocktailsByName(name: String) = makeRequest(
-        networkHandler, cocktailApi.getCocktailsByName(name), { it }, CocktailsResponse(
-            emptyList()
-        )
-    )
+    override fun getCocktailsByName(name: String) : Either<Failure, CocktailsResponse> {
+        val result = makeRequest(networkHandler, cocktailApi.getCocktailsByName(name), { it }, CocktailsResponse(emptyList()))
+
+        return if (result.isLeft) {
+
+            val localResult = cocktailDao.getCocktailsByName("%$name%")
+
+            if (localResult.isEmpty()) result
+            else Either.Right(CocktailsResponse(localResult))
+
+        } else result
+
+    }
 
     override fun saveCocktail(cocktails: List<Cocktail>): Either<Failure, Boolean> {
         val result = cocktailDao.saveCocktails(cocktails)
