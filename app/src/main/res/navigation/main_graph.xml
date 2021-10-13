@@ -10,17 +10,46 @@
         android:name="com.amalip.cocktailapp.presentation.cocktails.CocktailFragment"
         android:label="cocktail_fragment"
         tools:layout="@layout/cocktail_fragment">
+
         <action
             android:id="@+id/action_cocktailFragment_to_cocktailDetailFragment"
-            app:destination="@id/cocktailDetailFragment" />
+            app:destination="@id/cocktailDetailFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+
     </fragment>
+
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.amalip.cocktailapp.presentation.favorites.FavoriteFragment"
         android:label="favorite_fragment"
         tools:layout="@layout/favorite_fragment" />
+
     <fragment
         android:id="@+id/cocktailDetailFragment"
         android:name="com.amalip.cocktailapp.presentation.cocktaildetail.CocktailDetailFragment"
-        android:label="CocktailDetailFragment" />
+        android:label="CocktailDetailFragment">
+
+        <argument
+            android:name="cocktail"
+            app:argType="com.amalip.cocktailapp.domain.model.Cocktail" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.amalip.cocktailapp.presentation.account.AccountFragment"
+        android:label="account_fragment"
+        tools:layout="@layout/account_fragment" >
+        <action
+            android:id="@+id/action_accountFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.amalip.cocktailapp.presentation.login.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/login_fragment" />
+
 </navigation>

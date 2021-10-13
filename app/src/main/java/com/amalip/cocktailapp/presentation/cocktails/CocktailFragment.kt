@@ -49,6 +49,10 @@ class CocktailFragment : BaseFragment(R.layout.cocktail_fragment) {
 
         adapter.addData(cocktails)
 
+        adapter.listener = {
+            navController.navigate(CocktailFragmentDirections.actionCocktailFragmentToCocktailDetailFragment(it))
+        }
+
         binding.rcCocktails.apply {
             isVisible = cocktails.isNotEmpty()
             adapter = this@CocktailFragment.adapter

@@ -17,7 +17,7 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/account"
+        android:id="@+id/accountFragment"
         android:icon="@drawable/ic_account"
         android:orderInCategory="3"
         android:title="@string/text_account"

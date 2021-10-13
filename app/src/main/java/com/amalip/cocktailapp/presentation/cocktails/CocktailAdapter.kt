@@ -20,6 +20,8 @@ class CocktailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var list: MutableList<Cocktail> = mutableListOf()
     var layoutType = LayoutType.LINEAR
 
+    lateinit var listener: (cocktail: Cocktail) -> Unit
+
     fun addData(list: List<Cocktail>) {
         this.list = list.toMutableList()
 
@@ -48,7 +50,7 @@ class CocktailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         (holder as BaseViewHolder).bind(
-            list[position]
+            list[position], listener
         )
 
     override fun getItemCount() = list.size
@@ -57,21 +59,29 @@ class CocktailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 class ViewHolderItem(private val binding: RowCocktailBinding) :
     BaseViewHolder(binding.root) {
 
-    override fun bind(data: Cocktail) {
+    override fun bind(data: Cocktail, listener: (cocktail: Cocktail) -> Unit) {
         binding.item = data
+
+        binding.root.setOnClickListener {
+            listener(data)
+        }
     }
 }
 
 class ViewHolderGridItem(private val binding: GridCocktailBinding) :
     BaseViewHolder(binding.root) {
 
-    override fun bind(data: Cocktail) {
+    override fun bind(data: Cocktail, listener: (cocktail: Cocktail) -> Unit) {
         binding.item = data
+
+        binding.root.setOnClickListener {
+            listener(data)
+        }
     }
 }
 
 abstract class BaseViewHolder(private val root: View) : RecyclerView.ViewHolder(root) {
 
-    abstract fun bind(data: Cocktail)
+    abstract fun bind(data: Cocktail, listener: (cocktail: Cocktail) -> Unit)
 
 }
